@@ -7,5 +7,105 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="icons/main-logo.svg" alt="Chromatic Logo" class="logo" />
+        <button class="settings-btn" aria-label="Settings">
+          <img src="icons/settings-logo.svg" alt="Settings Icon" />
+        </button>
+      </header>
+  
+      <main class="main-container">
+        <div class="timer-card">
+          <div class="timer-tabs">
+            <button class="tab active" data-mode="pomodoro">Pomodoro</button>
+            <button class="tab" data-mode="short-break">Short Brake</button>
+            <button class="tab" data-mode="long-break">Long Brake</button>
+          </div>
+  
+          <div class="timer-display">
+            <h1 id="time">25:00</h1>
+          </div>
+  
+          <div class="timer-controls">
+            <button class="btn-primary" id="start-btn">START</button>
+            <div class="active-controls" style="display: none">
+              <button class="btn-icon" id="toggle-btn">
+                <img src="icons/pause-logo.svg" alt="Pause" id="toggle-icon" />
+              </button>
+              <button class="btn-secondary" id="reset-btn">RESET</button>
+            </div>
+          </div>
+        </div>
+      </main>
+  
+      <div class="modal-overlay" id="settings-modal" style="display: none">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>SETTINGS</h2>
+            <button class="close-btn" aria-label="Close Settings">
+              <img src="./icons/cross-icon.svg" alt="cross btn">
+            </button>
+          </div>
+  
+          <div class="modal-body">
+            <div class="settings-section">
+              <p class="section-label">Change Duration:</p>
+              <div class="duration-tabs">
+                <button class="tab active" data-setting="pomodoro">
+                  Pomodoro
+                </button>
+                <button class="tab" data-setting="short-break">
+                  Short Brake
+                </button>
+                <button class="tab" data-setting="long-break">Long Brake</button>
+              </div>
+            </div>
+  
+            <div class="settings-section duration-slider-section">
+              <div class="slider-header">
+                <label for="duration-slider" class="section-label"
+                  >Duration</label
+                >
+                <span id="duration-value">18 min</span>
+              </div>
+              <input
+                type="range"
+                id="duration-slider"
+                min="1"
+                max="60"
+                value="18"
+                class="slider"
+              />
+            </div>
+  
+            <div class="settings-section theme-section">
+              <p class="section-label">Change Theme:</p>
+              <div class="theme-controls">
+                <div class="theme-options">
+                  <button
+                    class="theme-btn active"
+                    data-theme="dark"
+                    aria-label="Dark Theme"
+                  ></button>
+                  <button
+                    class="theme-btn"
+                    data-theme="light"
+                    aria-label="Light Theme"
+                  ></button>
+                  <button
+                    class="theme-btn"
+                    data-theme="red"
+                    aria-label="Red Theme"
+                  ></button>
+                </div>
+                <button class="btn-primary save-btn">SAVE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

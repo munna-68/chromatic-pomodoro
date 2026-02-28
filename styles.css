@@ -222,3 +222,209 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* settings modal styles */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  padding: 4rem 5rem;
+  width: 980px;
+  box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.modal-header h2 {
+  font-family: var(--font-main);
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Custom underline for "SETTINGS" */
+.modal-header h2::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  bottom: 0;
+  width: 110%;
+  height: 1px;
+  background-color: #303030;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.close-btn img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover img {
+  transform: scale(1.1);
+}
+
+.settings-section {
+  margin-bottom: 3rem;
+}
+
+.section-label {
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.duration-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.duration-slider-section {
+  margin-top: 1rem;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.slider-header .section-label {
+  margin-bottom: 0;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+#duration-value {
+  font-family: var(--font-main);
+  font-size: 32px;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: -16px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--text-main);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* for Firefox */
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--text-main);
+  cursor: pointer;
+  border: none;
+}
+
+.theme-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-options {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.theme-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.theme-btn[data-theme="dark"] {
+  background-color: #292929;
+}
+
+.theme-btn[data-theme="light"] {
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+}
+
+.theme-btn[data-theme="red"] {
+  background-color: #af4343;
+}
+
+.theme-btn.active::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #5a3cd1;
+  pointer-events: none;
+}
+
+.theme-btn:hover {
+  transform: scale(1.05);
+}
+
+.save-btn {
+  padding: 0 4rem;
+}

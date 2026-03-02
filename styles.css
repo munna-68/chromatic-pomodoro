@@ -336,14 +336,30 @@ body {
 }
 
 .slider {
+  --slider-fill-color: var(--text-main);
+  --slider-track-color: #e0e0e0;
+  --slider-progress: 30%;
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 6px;
-  background: #e0e0e0;
+  background: linear-gradient(
+    90deg,
+    var(--slider-fill-color) var(--slider-progress),
+    var(--slider-track-color) var(--slider-progress)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   border-radius: 5px;
   outline: none;
   padding: 0;
   margin: 0;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 5px;
+  background: transparent;
 }
 
 .slider::-webkit-slider-thumb {
@@ -355,10 +371,23 @@ body {
   background: var(--text-main);
   cursor: pointer;
   transition: transform 0.1s ease;
+  margin-top: -8px;
 }
 
 .slider::-webkit-slider-thumb:hover {
   transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  height: 6px;
+  border-radius: 5px;
+  background: var(--slider-track-color);
+}
+
+.slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 5px;
+  background: var(--slider-fill-color);
 }
 
 /* for Firefox */
@@ -369,6 +398,7 @@ body {
   background: var(--text-main);
   cursor: pointer;
   border: none;
+  margin-top: -6px;
 }
 
 .theme-controls {

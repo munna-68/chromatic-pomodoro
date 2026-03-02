@@ -219,10 +219,6 @@ body {
   height: 2.19rem;
 }
 
-.hidden {
-  display: none !important;
-}
-
 /* settings modal styles */
 
 .modal-overlay {
@@ -427,4 +423,8 @@ body {
 
 .save-btn {
   padding: 0 4rem;
+}
+
+.hidden {
+  display: none !important;
 }

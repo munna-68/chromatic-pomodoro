@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Chromodoro</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <script src="./script.js" defer></script>
   </head>
   <body>
     <div class="container">
       <header class="header">
         <img src="icons/main-logo.png" alt="Chromatic Logo" class="logo" />
-        <button class="settings-btn" aria-label="Settings">
+        <button class="settings-btn" id="settings-btn" aria-label="Settings">
           <img src="icons/settings-logo.svg" alt="Settings Icon" />
         </button>
       </header>
@@ -44,7 +44,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2>SETTINGS</h2>
-            <button class="close-btn" aria-label="Close Settings">
+            <button
+              class="close-btn"
+              id="close-btn"
+              aria-label="Close Settings"
+            >
               <img src="./icons/cross-icon.svg" alt="cross btn" />
             </button>
           </div>

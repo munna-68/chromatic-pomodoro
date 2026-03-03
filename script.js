@@ -85,6 +85,7 @@ if (durationSlider) {
 themeButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     UIChanges.selectTheme(btn.dataset.theme);
+    UIChanges.applyTheme(btn.dataset.theme);
   });
 });
 

@@ -3,10 +3,14 @@ const closeBtn = document.getElementById("close-btn");
 const settingsBtn = document.getElementById("settings-btn");
 const durationSlider = document.getElementById("duration-slider");
 const durationValue = document.getElementById("duration-value");
+const themeButtons = document.querySelectorAll(".theme-btn");
+const saveBtn = document.querySelector(".save-btn");
 
 let pomodoroTimeInSec = 1500;
 let shortBrakeTimeInSec = 300;
 let longBrakeTimeInSec = 900;
+
+let selectedTheme = localStorage.getItem("theme") || "light";
 
 const UIChanges = {
   closeSettingsModal(e) {
@@ -29,6 +33,38 @@ const UIChanges = {
     const percent = max === min ? 0 : ((value - min) / (max - min)) * 100;
     durationSlider.style.setProperty("--slider-progress", `${percent}%`);
   },
+
+  applyTheme(theme) {
+    if (theme === "light") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  },
+
+  setActiveThemeButton(theme) {
+    themeButtons.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.theme === theme);
+    });
+  },
+
+  selectTheme(theme) {
+    selectedTheme = theme;
+    UIChanges.setActiveThemeButton(theme);
+  },
+
+  saveTheme() {
+    localStorage.setItem("theme", selectedTheme);
+    UIChanges.applyTheme(selectedTheme);
+    UIChanges.closeSettingsModal();
+  },
+
+  initTheme() {
+    const saved = localStorage.getItem("theme") || "light";
+    selectedTheme = saved;
+    UIChanges.applyTheme(saved);
+    UIChanges.setActiveThemeButton(saved);
+  },
 };
 
 if (closeBtn) {
@@ -45,3 +81,16 @@ if (durationSlider) {
   durationSlider.addEventListener("input", UIChanges.updateTimeFromSlider);
   UIChanges.updateTimeFromSlider();
 }
+
+themeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    UIChanges.selectTheme(btn.dataset.theme);
+  });
+});
+
+if (saveBtn) {
+  saveBtn.addEventListener("click", UIChanges.saveTheme);
+}
+
+// Apply saved theme on page load
+UIChanges.initTheme();

@@ -69,6 +69,27 @@ const UIChanges = {
   },
 };
 
+const timeControls = {
+  timerId: null,
+  startSecCounter() {
+    if (!this.timerId) {
+      this.timerId = setInterval(() => {
+        pomodoroTimeInSec--;
+        console.log(pomodoroTimeInSec);
+        if (pomodoroTimeInSec === 1488) {
+          this.stopSecCounter();
+        }
+      }, 1000);
+    }
+  },
+  stopSecCounter() {
+    clearInterval(this.timerId);
+    this.timerId = null;
+  },
+};
+
+timeControls.startSecCounter();
+
 if (closeBtn) {
   closeBtn.addEventListener("click", UIChanges.closeSettingsModal);
 }

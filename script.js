@@ -5,11 +5,30 @@ const durationSlider = document.getElementById("duration-slider");
 const durationValue = document.getElementById("duration-value");
 const themeButtons = document.querySelectorAll(".theme-btn");
 const saveBtn = document.querySelector(".save-btn");
-const timerTab = document.querySelectorAll(".tab");
+const timerTab = document.querySelectorAll(".timer-tabs .tab");
+const clock = document.getElementById("time");
 
-let pomodoroTimeInSec = 1500;
-let shortBrakeTimeInSec = 300;
-let longBrakeTimeInSec = 900;
+let timeInSec;
+
+const times = {
+  pomodoroTimeInSec: 1500,
+  shortBrakeTimeInSec: 300,
+  longBrakeTimeInSec: 900,
+};
+
+function getTimeForMode(mode) {
+  if (mode === "pomodoro") {
+    return times.pomodoroTimeInSec;
+  } else if (mode === "short-break") {
+    return times.shortBrakeTimeInSec;
+  } else if (mode === "long-break") {
+    return times.longBrakeTimeInSec;
+  }
+
+  return times.pomodoroTimeInSec;
+}
+
+timeInSec = getTimeForMode("pomodoro");
 
 let selectedTheme = localStorage.getItem("theme") || "light";
 
@@ -74,11 +93,20 @@ const UIChanges = {
     timerTab.forEach((t) => {
       t.classList.toggle("active", t === tab);
     });
+    const mode = tab.dataset.mode;
+    timeInSec = getTimeForMode(mode);
+  },
+
+  renderTime() {
+    clock.textContent = timeControls.secToMin(timeInSec);
   },
 };
 
 timerTab.forEach((tab) => {
-  tab.addEventListener("click", UIChanges.setActiveTab);
+  tab.addEventListener("click", (e) => {
+    UIChanges.setActiveTab(e);
+    UIChanges.renderTime();
+  });
 });
 
 const timeControls = {
@@ -86,9 +114,9 @@ const timeControls = {
   startSecCounter() {
     if (!this.timerId) {
       this.timerId = setInterval(() => {
-        pomodoroTimeInSec--;
-        console.log(pomodoroTimeInSec);
-        if (pomodoroTimeInSec === 1488) {
+        timeInSec--;
+        console.log(timeInSec);
+        if (timeInSec === 1488) {
           this.stopSecCounter();
         }
       }, 1000);
@@ -97,6 +125,12 @@ const timeControls = {
   stopSecCounter() {
     clearInterval(this.timerId);
     this.timerId = null;
+  },
+
+  secToMin(sec) {
+    let min = Math.floor(sec / 60);
+    let second = sec % 60;
+    return `${min}:${second.toString().padStart(2, "0")}`;
   },
 };
 

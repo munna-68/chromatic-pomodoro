@@ -12,6 +12,26 @@ let longBrakeTimeInSec = 900;
 
 let selectedTheme = localStorage.getItem("theme") || "light";
 
+const ThemeManager = {
+  selectTheme(theme) {
+    selectedTheme = theme;
+    UIChanges.setActiveThemeButton(theme);
+  },
+
+  saveTheme() {
+    localStorage.setItem("theme", selectedTheme);
+    UIChanges.applyTheme(selectedTheme);
+    UIChanges.closeSettingsModal();
+  },
+
+  initTheme() {
+    const saved = localStorage.getItem("theme") || "light";
+    selectedTheme = saved;
+    UIChanges.applyTheme(saved);
+    UIChanges.setActiveThemeButton(saved);
+  },
+};
+
 const UIChanges = {
   closeSettingsModal(e) {
     settingModalOverlay.classList.add("hidden");
@@ -47,24 +67,6 @@ const UIChanges = {
       btn.classList.toggle("active", btn.dataset.theme === theme);
     });
   },
-
-  selectTheme(theme) {
-    selectedTheme = theme;
-    UIChanges.setActiveThemeButton(theme);
-  },
-
-  saveTheme() {
-    localStorage.setItem("theme", selectedTheme);
-    UIChanges.applyTheme(selectedTheme);
-    UIChanges.closeSettingsModal();
-  },
-
-  initTheme() {
-    const saved = localStorage.getItem("theme") || "light";
-    selectedTheme = saved;
-    UIChanges.applyTheme(saved);
-    UIChanges.setActiveThemeButton(saved);
-  },
 };
 
 if (closeBtn) {
@@ -84,14 +86,14 @@ if (durationSlider) {
 
 themeButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    UIChanges.selectTheme(btn.dataset.theme);
+    ThemeManager.selectTheme(btn.dataset.theme);
     UIChanges.applyTheme(btn.dataset.theme);
   });
 });
 
 if (saveBtn) {
-  saveBtn.addEventListener("click", UIChanges.saveTheme);
+  saveBtn.addEventListener("click", ThemeManager.saveTheme);
 }
 
 // Apply saved theme on page load
-UIChanges.initTheme();
+ThemeManager.initTheme();

@@ -5,6 +5,7 @@ const durationSlider = document.getElementById("duration-slider");
 const durationValue = document.getElementById("duration-value");
 const themeButtons = document.querySelectorAll(".theme-btn");
 const saveBtn = document.querySelector(".save-btn");
+const timerTab = document.querySelectorAll(".tab");
 
 let pomodoroTimeInSec = 1500;
 let shortBrakeTimeInSec = 300;
@@ -67,7 +68,18 @@ const UIChanges = {
       btn.classList.toggle("active", btn.dataset.theme === theme);
     });
   },
+
+  setActiveTab(e) {
+    const tab = e.target;
+    timerTab.forEach((t) => {
+      t.classList.toggle("active", t === tab);
+    });
+  },
 };
+
+timerTab.forEach((tab) => {
+  tab.addEventListener("click", UIChanges.setActiveTab);
+});
 
 const timeControls = {
   timerId: null,

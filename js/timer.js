@@ -11,6 +11,7 @@ export function getTimeInSec() {
 }
 
 export const timeControls = {
+  sound: new Audio("sounds/alarm-sound.mp3"),
   timerId: null,
   startSecCounter() {
     if (!this.timerId) {
@@ -19,6 +20,7 @@ export const timeControls = {
         UIChanges.renderTime();
         if (timeInSec === 0) {
           this.stopSecCounter();
+          this.sound.play();
         }
       }, 1000);
     }

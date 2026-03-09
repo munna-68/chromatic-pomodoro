@@ -90,6 +90,7 @@ export const UIChanges = {
   startBtnClickEvent() {
     startBtn.classList.add("hidden");
     activeControls.classList.remove("hidden");
+    timeControls.startSecCounter();
   },
 
   resetBtnClickEvent() {

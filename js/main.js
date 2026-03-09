@@ -1,5 +1,5 @@
 import { getTimeForMode } from "./utils.js";
-import { setTimeInSec, timeControls } from "./timer.js";
+import { setTimeInSec } from "./timer.js";
 import {
   closeBtn,
   durationSlider,
@@ -22,8 +22,6 @@ timerTab.forEach((tab) => {
     UIChanges.renderTime();
   });
 });
-
-timeControls.startSecCounter();
 
 if (closeBtn) {
   closeBtn.addEventListener("click", UIChanges.closeSettingsModal);

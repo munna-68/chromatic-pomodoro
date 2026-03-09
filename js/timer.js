@@ -1,3 +1,4 @@
+import { UIChanges } from "./ui.js";
 let timeInSec;
 
 export function setTimeInSec(value) {
@@ -14,8 +15,8 @@ export const timeControls = {
     if (!this.timerId) {
       this.timerId = setInterval(() => {
         timeInSec--;
-        console.log(timeInSec);
-        if (timeInSec === 1488) {
+        UIChanges.renderTime();
+        if (timeInSec === 0) {
           this.stopSecCounter();
         }
       }, 1000);
@@ -25,6 +26,18 @@ export const timeControls = {
     clearInterval(this.timerId);
     this.timerId = null;
   },
+
+  // pauseSecCounter() {
+
+  // },
+
+  // resumeSecCounter() {
+
+  // }
+
+  // resetSecCounter() {
+
+  // },
 
   secToMin(sec) {
     let min = Math.floor(sec / 60);

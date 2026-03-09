@@ -15,6 +15,7 @@ export const startBtn = document.getElementById("start-btn");
 export const toggleIcon = document.getElementById("toggle-icon");
 export const resetBtn = document.getElementById("reset-btn");
 export const activeControls = document.querySelector(".active-controls");
+export const durationTab = document.querySelectorAll(".duration-tabs .tab");
 
 let selectedTheme = getStoredTheme();
 
@@ -107,5 +108,31 @@ export const UIChanges = {
       toggleIcon.src = "icons/pause-logo.svg";
       timeControls.resumeSecCounter();
     }
+  },
+
+  setSettingsActiveTab(e) {
+    const tab = e.target;
+    durationTab.forEach((t) => {
+      t.classList.toggle("active", t === tab);
+    });
+  },
+
+  setRangeSliderRangeAndValue(e) {
+    const mode = e.target.dataset.setting;
+    if (mode === "pomodoro") {
+      durationSlider.min = 5;
+      durationSlider.max = 99;
+      durationSlider.value = 25;
+    } else if (mode === "short-break") {
+      durationSlider.min = 1;
+      durationSlider.max = 30;
+      durationSlider.value = 5;
+    } else if (mode === "long-break") {
+      durationSlider.min = 1;
+      durationSlider.max = 60;
+      durationSlider.value = 15;
+    }
+    this.updateTimeFromSlider();
+    this.updateSliderProgress();
   },
 };

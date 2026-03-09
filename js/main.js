@@ -11,6 +11,7 @@ import {
   startBtn,
   toggleIcon,
   resetBtn,
+  durationTab,
   UIChanges,
 } from "./ui.js";
 
@@ -20,6 +21,13 @@ timerTab.forEach((tab) => {
   tab.addEventListener("click", (e) => {
     UIChanges.setActiveTab(e);
     UIChanges.renderTime();
+  });
+});
+
+durationTab.forEach((tab) => {
+  tab.addEventListener("click", (e) => {
+    UIChanges.setSettingsActiveTab(e);
+    UIChanges.setRangeSliderRangeAndValue(e);
   });
 });
 

@@ -11,6 +11,10 @@ export const themeButtons = document.querySelectorAll(".theme-btn");
 export const saveBtn = document.querySelector(".save-btn");
 export const timerTab = document.querySelectorAll(".timer-tabs .tab");
 export const clock = document.getElementById("time");
+export const startBtn = document.getElementById("start-btn");
+export const toggleIcon = document.getElementById("toggle-icon");
+export const resetBtn = document.getElementById("reset-btn");
+export const activeControls = document.querySelector(".active-controls");
 
 let selectedTheme = getStoredTheme();
 
@@ -81,5 +85,23 @@ export const UIChanges = {
 
   renderTime() {
     clock.textContent = timeControls.secToMin(getTimeInSec());
+  },
+
+  startBtnClickEvent() {
+    startBtn.classList.add("hidden");
+    activeControls.classList.remove("hidden");
+  },
+
+  resetBtnClickEvent() {
+    startBtn.classList.remove("hidden");
+    activeControls.classList.add("hidden");
+  },
+
+  toggleIcon() {
+    if (toggleIcon.src.includes("pause-logo.svg")) {
+      toggleIcon.src = "icons/resume-logo.svg";
+    } else {
+      toggleIcon.src = "icons/pause-logo.svg";
+    }
   },
 };

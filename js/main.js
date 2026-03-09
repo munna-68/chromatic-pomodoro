@@ -8,6 +8,9 @@ import {
   ThemeManager,
   themeButtons,
   timerTab,
+  startBtn,
+  toggleIcon,
+  resetBtn,
   UIChanges,
 } from "./ui.js";
 
@@ -49,3 +52,15 @@ if (saveBtn) {
 }
 
 ThemeManager.initTheme();
+
+if (startBtn) {
+  startBtn.addEventListener("click", UIChanges.startBtnClickEvent);
+}
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", UIChanges.resetBtnClickEvent);
+}
+
+if (toggleIcon) {
+  toggleIcon.addEventListener("click", UIChanges.toggleIcon);
+}

@@ -1,4 +1,5 @@
-import { UIChanges } from "./ui.js";
+import { UIChanges, timerTab } from "./ui.js";
+import { getTimeForMode } from "./utils.js";
 let timeInSec;
 
 export function setTimeInSec(value) {
@@ -27,17 +28,25 @@ export const timeControls = {
     this.timerId = null;
   },
 
-  // pauseSecCounter() {
+  pauseSecCounter() {
+    this.stopSecCounter();
+  },
 
-  // },
+  resumeSecCounter() {
+    this.startSecCounter();
+  },
 
-  // resumeSecCounter() {
+  resetSecCounter() {
+    this.stopSecCounter();
 
-  // }
+    const activeTab = Array.from(timerTab).find((tab) =>
+      tab.classList.contains("active"),
+    );
+    const mode = activeTab?.dataset.mode ?? "pomodoro";
 
-  // resetSecCounter() {
-
-  // },
+    setTimeInSec(getTimeForMode(mode));
+    UIChanges.renderTime();
+  },
 
   secToMin(sec) {
     let min = Math.floor(sec / 60);

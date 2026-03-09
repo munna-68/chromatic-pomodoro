@@ -96,13 +96,16 @@ export const UIChanges = {
   resetBtnClickEvent() {
     startBtn.classList.remove("hidden");
     activeControls.classList.add("hidden");
+    timeControls.resetSecCounter();
   },
 
   toggleIcon() {
     if (toggleIcon.src.includes("pause-logo.svg")) {
       toggleIcon.src = "icons/resume-logo.svg";
+      timeControls.pauseSecCounter();
     } else {
       toggleIcon.src = "icons/pause-logo.svg";
+      timeControls.resumeSecCounter();
     }
   },
 };

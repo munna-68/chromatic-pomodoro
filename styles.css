@@ -387,7 +387,7 @@ body {
 .slider-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 
@@ -397,12 +397,39 @@ body {
   font-weight: 400;
 }
 
+.duration-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 #duration-value {
   font-family: var(--font-main);
   font-size: 2rem;
   font-weight: 600;
-  position: relative;
-  margin-bottom: -1rem;
+  line-height: 1;
+}
+
+.reset-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--btn-active);
+  cursor: pointer;
+}
+
+.reset-button img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.reset-button.inactive {
+  opacity: 0.4;
 }
 
 .slider {

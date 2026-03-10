@@ -75,13 +75,25 @@ export const UIChanges = {
     });
   },
 
-  setActiveTab(e) {
-    const tab = e.target;
-    timerTab.forEach((t) => {
-      t.classList.toggle("active", t === tab);
+  setActiveTimerMode(mode) {
+    const activeTab = Array.from(timerTab).find(
+      (tab) => tab.dataset.mode === mode,
+    );
+
+    if (!activeTab) {
+      return;
+    }
+
+    timerTab.forEach((tab) => {
+      tab.classList.toggle("active", tab === activeTab);
     });
-    const mode = tab.dataset.mode;
+
     setTimeInSec(getTimeForMode(mode));
+    this.renderTime();
+  },
+
+  setActiveTab(e) {
+    this.setActiveTimerMode(e.target.dataset.mode);
   },
 
   renderTime() {
@@ -97,6 +109,7 @@ export const UIChanges = {
   resetBtnClickEvent() {
     startBtn.classList.remove("hidden");
     activeControls.classList.add("hidden");
+    toggleIcon.src = "icons/pause-logo.svg";
     timeControls.resetSecCounter();
   },
 

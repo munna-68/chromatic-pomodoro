@@ -13,6 +13,25 @@ export function getTimeInSec() {
 export const timeControls = {
   sound: new Audio("sounds/alarm-sound.mp3"),
   timerId: null,
+  shortBrakeCounter: 0,
+  getNextMode(mode) {
+    if (mode === "pomodoro") {
+      if (this.shortBrakeCounter >= 2) {
+        this.shortBrakeCounter = 0;
+        return "long-break";
+      }
+
+      return "short-break";
+    }
+
+    if (mode === "short-break") {
+      this.shortBrakeCounter += 1;
+      return "pomodoro";
+    }
+
+    return "pomodoro";
+  },
+
   startSecCounter() {
     if (!this.timerId) {
       this.timerId = setInterval(() => {
@@ -21,6 +40,14 @@ export const timeControls = {
         if (timeInSec === 0) {
           this.stopSecCounter();
           this.sound.play();
+          const activeTab = Array.from(timerTab).find((tab) =>
+            tab.classList.contains("active"),
+          );
+          const mode = activeTab?.dataset.mode ?? "pomodoro";
+          const nextMode = this.getNextMode(mode);
+
+          UIChanges.setActiveTimerMode(nextMode);
+          UIChanges.resetBtnClickEvent();
         }
       }, 1000);
     }

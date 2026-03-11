@@ -1,17 +1,26 @@
 export const times = {
-  pomodoroTimeInSec: 1500,
-  shortBrakeTimeInSec: 300,
-  longBrakeTimeInSec: 900,
+  pomodoroTimeInSec: Number(localStorage.getItem("pomodoroTimeInSec")) || 1500,
+  shortBreakTimeInSec:
+    Number(localStorage.getItem("shortBreakTimeInSec")) || 300,
+  longBreakTimeInSec: Number(localStorage.getItem("longBreakTimeInSec")) || 900,
 };
 
-export function getTimeForMode(mode) {
+export function getTimeKeyForMode(mode) {
   if (mode === "pomodoro") {
-    return times.pomodoroTimeInSec;
-  } else if (mode === "short-break") {
-    return times.shortBrakeTimeInSec;
-  } else if (mode === "long-break") {
-    return times.longBrakeTimeInSec;
+    return "pomodoroTimeInSec";
   }
 
-  return times.pomodoroTimeInSec;
+  if (mode === "short-break") {
+    return "shortBreakTimeInSec";
+  }
+
+  if (mode === "long-break") {
+    return "longBreakTimeInSec";
+  }
+
+  return "pomodoroTimeInSec";
+}
+
+export function getTimeForMode(mode) {
+  return times[getTimeKeyForMode(mode)];
 }

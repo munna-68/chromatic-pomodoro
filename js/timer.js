@@ -13,11 +13,11 @@ export function getTimeInSec() {
 export const timeControls = {
   sound: new Audio("sounds/alarm-sound.mp3"),
   timerId: null,
-  shortBrakeCounter: 0,
+  shortBreakCounter: 0,
   getNextMode(mode) {
     if (mode === "pomodoro") {
-      if (this.shortBrakeCounter >= 2) {
-        this.shortBrakeCounter = 0;
+      if (this.shortBreakCounter >= 2) {
+        this.shortBreakCounter = 0;
         return "long-break";
       }
 
@@ -25,7 +25,7 @@ export const timeControls = {
     }
 
     if (mode === "short-break") {
-      this.shortBrakeCounter += 1;
+      this.shortBreakCounter += 1;
       return "pomodoro";
     }
 
@@ -81,5 +81,9 @@ export const timeControls = {
     let min = Math.floor(sec / 60);
     let second = sec % 60;
     return `${min}:${second.toString().padStart(2, "0")}`;
+  },
+
+  minToSec(min) {
+    return min * 60;
   },
 };

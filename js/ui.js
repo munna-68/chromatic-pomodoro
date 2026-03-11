@@ -1,5 +1,5 @@
 import { getStoredTheme, setStoredTheme } from "./storage.js";
-import { getTimeForMode } from "./utils.js";
+import { times, getTimeForMode, getTimeKeyForMode } from "./utils.js";
 import { getTimeInSec, setTimeInSec, timeControls } from "./timer.js";
 
 export const settingModalOverlay = document.getElementById("settings-modal");
@@ -43,9 +43,42 @@ export const UIChanges = {
   closeSettingsModal(e) {
     settingModalOverlay.classList.add("hidden");
   },
+
+  getActiveTimerMode() {
+    return (
+      Array.from(timerTab).find((tab) => tab.classList.contains("active"))
+        ?.dataset.mode ?? "pomodoro"
+    );
+  },
+
+  setActiveSettingsMode(mode) {
+    const activeSettingsTab = Array.from(durationTab).find(
+      (tab) => tab.dataset.setting === mode,
+    );
+
+    if (!activeSettingsTab) {
+      return null;
+    }
+
+    durationTab.forEach((tab) => {
+      tab.classList.toggle("active", tab === activeSettingsTab);
+    });
+
+    return activeSettingsTab;
+  },
+
   openSettingModal(e) {
     if (settingModalOverlay.classList.contains("hidden"))
       settingModalOverlay.classList.remove("hidden");
+
+    const activeSettingsTab = UIChanges.setActiveSettingsMode(
+      UIChanges.getActiveTimerMode(),
+    );
+
+    if (activeSettingsTab) {
+      // emulate clickevent with the object as argument to reuse function
+      UIChanges.setRangeSliderRangeAndValue({ target: activeSettingsTab });
+    }
   },
 
   updateTimeFromSlider() {
@@ -135,17 +168,43 @@ export const UIChanges = {
     if (mode === "pomodoro") {
       durationSlider.min = 5;
       durationSlider.max = 99;
-      durationSlider.value = 25;
     } else if (mode === "short-break") {
       durationSlider.min = 1;
       durationSlider.max = 30;
-      durationSlider.value = 5;
     } else if (mode === "long-break") {
       durationSlider.min = 1;
       durationSlider.max = 60;
-      durationSlider.value = 15;
     }
+
+    durationSlider.value = getTimeForMode(mode) / 60;
+
     this.updateTimeFromSlider();
     this.updateSliderProgress();
+  },
+
+  useNewTime() {
+    const newTimeInMin = parseFloat(durationSlider.value);
+
+    const activeSettingsTimerTab = Array.from(durationTab).find((tab) =>
+      tab.classList.contains("active"),
+    )?.dataset.setting;
+
+    if (!activeSettingsTimerTab) {
+      return;
+    }
+
+    const newTimeInSec = timeControls.minToSec(newTimeInMin);
+
+    const timesKey = getTimeKeyForMode(activeSettingsTimerTab);
+    localStorage.setItem(timesKey, newTimeInSec);
+
+    times[timesKey] = newTimeInSec;
+
+    const activeTimerMode = this.getActiveTimerMode();
+
+    if (activeTimerMode === activeSettingsTimerTab) {
+      setTimeInSec(newTimeInSec);
+      this.renderTime();
+    }
   },
 };

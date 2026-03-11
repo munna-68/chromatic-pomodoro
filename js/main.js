@@ -54,7 +54,11 @@ themeButtons.forEach((btn) => {
 });
 
 if (saveBtn) {
-  saveBtn.addEventListener("click", ThemeManager.saveTheme);
+  saveBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    UIChanges.useNewTime();
+    ThemeManager.saveTheme();
+  });
 }
 
 ThemeManager.initTheme();

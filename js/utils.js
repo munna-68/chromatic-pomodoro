@@ -1,24 +1,15 @@
-export const times = {
-  pomodoroTimeInSec: Number(localStorage.getItem("pomodoroTimeInSec")) || 1500,
-  shortBreakTimeInSec:
-    Number(localStorage.getItem("shortBreakTimeInSec")) || 300,
-  longBreakTimeInSec: Number(localStorage.getItem("longBreakTimeInSec")) || 900,
-};
+import { getStoredTimes, TIMER_STORAGE_KEYS } from "./storage.js";
+
+export const times = getStoredTimes();
+
+const TIME_KEYS_BY_MODE = Object.freeze({
+  pomodoro: TIMER_STORAGE_KEYS.pomodoro,
+  "short-break": TIMER_STORAGE_KEYS.shortBreak,
+  "long-break": TIMER_STORAGE_KEYS.longBreak,
+});
 
 export function getTimeKeyForMode(mode) {
-  if (mode === "pomodoro") {
-    return "pomodoroTimeInSec";
-  }
-
-  if (mode === "short-break") {
-    return "shortBreakTimeInSec";
-  }
-
-  if (mode === "long-break") {
-    return "longBreakTimeInSec";
-  }
-
-  return "pomodoroTimeInSec";
+  return TIME_KEYS_BY_MODE[mode] ?? TIME_KEYS_BY_MODE.pomodoro;
 }
 
 export function getTimeForMode(mode) {

@@ -1,4 +1,10 @@
-import { getStoredTheme, setStoredTheme } from "./storage.js";
+import {
+  DEFAULT_TIMES,
+  getStoredTheme,
+  resetStoredTimes,
+  setStoredTheme,
+  setStoredTime,
+} from "./storage.js";
 import { times, getTimeForMode, getTimeKeyForMode } from "./utils.js";
 import { getTimeInSec, setTimeInSec, timeControls } from "./timer.js";
 
@@ -16,6 +22,7 @@ export const toggleIcon = document.getElementById("toggle-icon");
 export const resetBtn = document.getElementById("reset-btn");
 export const activeControls = document.querySelector(".active-controls");
 export const durationTab = document.querySelectorAll(".duration-tabs .tab");
+export const settingResetBtn = document.getElementById("settings-reset-btn");
 
 let selectedTheme = getStoredTheme();
 
@@ -92,6 +99,10 @@ export const UIChanges = {
     const value = parseFloat(durationSlider.value);
     const percent = max === min ? 0 : ((value - min) / (max - min)) * 100;
     durationSlider.style.setProperty("--slider-progress", `${percent}%`);
+    if (settingResetBtn.classList.contains("inactive")) {
+      settingResetBtn.classList.remove("inactive");
+      settingResetBtn.disabled = false;
+    }
   },
 
   applyTheme(theme) {
@@ -196,7 +207,7 @@ export const UIChanges = {
     const newTimeInSec = timeControls.minToSec(newTimeInMin);
 
     const timesKey = getTimeKeyForMode(activeSettingsTimerTab);
-    localStorage.setItem(timesKey, newTimeInSec);
+    setStoredTime(timesKey, newTimeInSec);
 
     times[timesKey] = newTimeInSec;
 
@@ -206,5 +217,25 @@ export const UIChanges = {
       setTimeInSec(newTimeInSec);
       this.renderTime();
     }
+  },
+
+  resetSettingsValue() {
+    resetStoredTimes();
+    Object.assign(times, DEFAULT_TIMES);
+
+    settingResetBtn.classList.add("inactive");
+    settingResetBtn.disabled = true;
+
+    const activeSettingsTab = Array.from(durationTab).find((tab) =>
+      tab.classList.contains("active"),
+    );
+    const activeTimerMode = UIChanges.getActiveTimerMode();
+
+    if (activeSettingsTab) {
+      UIChanges.setRangeSliderRangeAndValue({ target: activeSettingsTab });
+    }
+
+    setTimeInSec(getTimeForMode(activeTimerMode));
+    UIChanges.renderTime();
   },
 };

@@ -13,6 +13,7 @@ import {
   resetBtn,
   durationTab,
   UIChanges,
+  settingResetBtn,
 } from "./ui.js";
 
 setTimeInSec(getTimeForMode("pomodoro"));
@@ -74,3 +75,11 @@ if (resetBtn) {
 if (toggleIcon) {
   toggleIcon.addEventListener("click", UIChanges.toggleIcon);
 }
+
+if (settingResetBtn) {
+  settingResetBtn.addEventListener("click", UIChanges.resetSettingsValue);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  UIChanges.renderTime();
+});

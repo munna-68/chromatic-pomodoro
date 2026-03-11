@@ -555,3 +555,304 @@ body {
 .hidden {
   display: none !important;
 }
+
+@media (max-width: 1080px) {
+  .container {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 1.5rem;
+  }
+
+  .timer-card {
+    width: min(100%, 860px);
+    min-width: 0;
+    padding: clamp(3rem, 9vw, 7.625rem) clamp(1.5rem, 8vw, 7.1875rem);
+  }
+
+  .timer-tabs,
+  .duration-tabs {
+    gap: 1rem;
+  }
+
+  .timer-tabs {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tab {
+    padding-inline: 1.75rem;
+    font-size: 1.25rem;
+  }
+
+  #time {
+    font-size: clamp(5rem, 12vw, 8rem);
+  }
+
+  .modal-content {
+    width: min(100%, 980px);
+    padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem);
+    border-radius: 1.75rem;
+    max-height: calc(100svh - 3rem);
+    overflow-y: auto;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    display: block;
+    min-height: 100svh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding: 1.5rem 1rem 2rem;
+    min-height: 100svh;
+  }
+
+  .logo {
+    height: 1.5rem;
+  }
+
+  .settings-btn img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .main-container {
+    align-items: flex-start;
+    padding: 2.75rem 0 3rem;
+  }
+
+  .timer-card {
+    width: 100%;
+    border-radius: 28px;
+    box-shadow: 6px 8px 20px 0px var(--card-shadow);
+  }
+
+  .timer-tabs {
+    gap: 0.75rem;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.7rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .timer-display {
+    margin-bottom: 2rem;
+  }
+
+  #time {
+    font-size: clamp(4rem, 20vw, 5.5rem);
+    line-height: 1;
+  }
+
+  .timer-controls {
+    height: auto;
+    width: 100%;
+  }
+
+  .btn-primary {
+    min-width: 9rem;
+    height: 4rem;
+    padding: 0.75rem 2.5rem;
+    font-size: 1.75rem;
+  }
+
+  .btn-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .modal-overlay {
+    align-items: flex-start;
+    padding: 7rem 1rem 1.5rem;
+  }
+
+  .modal-content {
+    width: 100%;
+    border-radius: 1.5rem;
+    max-height: calc(100svh - 8.5rem);
+  }
+
+  .modal-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .settings-section {
+    margin-bottom: 2rem;
+  }
+
+  .duration-tabs {
+    flex-wrap: wrap;
+  }
+
+  .slider-header .section-label,
+  #duration-value {
+    font-size: 1.5rem;
+  }
+
+  .theme-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .save-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    padding: 1.25rem 1.5rem 2rem;
+  }
+
+  .header {
+    align-items: flex-start;
+  }
+
+  .logo {
+    height: 1.5rem;
+  }
+
+  .main-container {
+    padding-top: 3.5rem;
+  }
+
+  .timer-card {
+    border-radius: 24px;
+    padding: 2.75rem 0.75rem 2.5rem;
+  }
+
+  .timer-tabs {
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .tab {
+    border-radius: 1rem;
+    padding: 0.8rem 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  #time {
+    font-size: clamp(4.5rem, 22vw, 5.75rem);
+  }
+
+  .btn-primary {
+    height: 3.75rem;
+    min-width: 8.5rem;
+    font-size: 1.5rem;
+    padding-inline: 2rem;
+  }
+
+  .active-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-icon {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .modal-overlay {
+    padding: 6.5rem 1rem 1.5rem;
+  }
+
+  .modal-content {
+    border-radius: 1.5rem;
+    padding: 1.5rem 1rem 1.75rem;
+    max-height: calc(100svh - 8rem);
+  }
+
+  .modal-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .close-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .settings-section:first-child {
+    margin-bottom: 1.5rem;
+  }
+
+  .settings-section:first-child .section-label {
+    margin-bottom: 0.75rem;
+  }
+
+  .duration-tabs {
+    gap: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .duration-tabs .tab {
+    flex: 1 1 calc(33.333% - 0.5rem);
+    padding: 0.7rem 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  .slider-header {
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .slider-header .section-label {
+    font-size: 1.25rem;
+  }
+
+  .duration-display {
+    gap: 0.75rem;
+  }
+
+  #duration-value {
+    font-size: 1.25rem;
+  }
+
+  .reset-button {
+    width: 2.75rem;
+    height: 2rem;
+    border-radius: 0.75rem;
+  }
+
+  .reset-button img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .section-label {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .theme-controls {
+    gap: 1.75rem;
+  }
+
+  .theme-options {
+    gap: 1rem;
+  }
+
+  .theme-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .save-btn {
+    width: auto;
+    min-width: 7rem;
+    align-self: center;
+  }
+}

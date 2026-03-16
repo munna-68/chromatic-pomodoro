@@ -14,6 +14,8 @@ export const timeControls = {
   sound: new Audio("sounds/alarm-sound.mp3"),
   timerId: null,
   shortBreakCounter: 0,
+  _startTime: null,
+  _startTimeInSec: null,
   getNextMode(mode) {
     if (mode === "pomodoro") {
       if (this.shortBreakCounter >= 2) {
@@ -34,8 +36,11 @@ export const timeControls = {
 
   startSecCounter() {
     if (!this.timerId) {
+      this._startTime = Date.now();
+      this._startTimeInSec = timeInSec;
       this.timerId = setInterval(() => {
-        timeInSec--;
+        const elapsed = Math.floor((Date.now() - this._startTime) / 1000);
+        timeInSec = Math.max(0, this._startTimeInSec - elapsed);
         UIChanges.renderTime();
         if (timeInSec === 0) {
           this.stopSecCounter();
@@ -55,6 +60,8 @@ export const timeControls = {
   stopSecCounter() {
     clearInterval(this.timerId);
     this.timerId = null;
+    this._startTime = null;
+    this._startTimeInSec = null;
   },
 
   pauseSecCounter() {

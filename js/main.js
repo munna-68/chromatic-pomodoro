@@ -1,5 +1,5 @@
 import { getTimeForMode } from "./utils.js";
-import { setTimeInSec } from "./timer.js";
+import { setTimeInSec, timeControls } from "./timer.js";
 import {
   closeBtn,
   durationSlider,
@@ -21,6 +21,8 @@ setTimeInSec(getTimeForMode("pomodoro"));
 timerTab.forEach((tab) => {
   tab.addEventListener("click", (e) => {
     UIChanges.setActiveTab(e);
+    timeControls.stopSecCounter();
+    UIChanges.resetBtnClickEvent();
     UIChanges.renderTime();
   });
 });

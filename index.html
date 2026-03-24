@@ -7,8 +7,28 @@
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="./js/main.js"></script>
   </head>
-  <body>
-    <div class="container">
+  <body class="loading">
+    <div class="preloader" id="preloader" role="status" aria-live="polite">
+      <div class="preloader-inner">
+        <div class="preloader-logo" aria-hidden="true">
+          <span class="preloader-logo-text">CHROMATIC</span>
+          <span class="preloader-logo-dot">.</span>
+        </div>
+        <div class="preloader-progress-wrapper">
+          <div class="preloader-progress-text" id="preloader-progress-text">
+            0 %
+          </div>
+          <div class="preloader-progress-track" aria-hidden="true">
+            <div
+              class="preloader-progress-bar"
+              id="preloader-progress-bar"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container app-root" id="app-root">
       <header class="header">
         <svg
           xmlns="http://www.w3.org/2000/svg"

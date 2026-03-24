@@ -16,6 +16,80 @@ import {
   settingResetBtn,
 } from "./ui.js";
 
+const preloader = document.getElementById("preloader");
+const preloaderBar = document.getElementById("preloader-progress-bar");
+const preloaderText = document.getElementById("preloader-progress-text");
+
+function updatePreloader(percent) {
+  if (!preloaderBar || !preloaderText) {
+    return;
+  }
+
+  const safePercent = Math.max(0, Math.min(100, percent));
+  const rounded = Math.floor(safePercent);
+  preloaderBar.style.width = `${safePercent}%`;
+  preloaderText.textContent = `${rounded} %`;
+}
+
+function completePreloader() {
+  if (!preloader) {
+    document.body.classList.remove("loading");
+    return;
+  }
+
+  updatePreloader(100);
+
+  setTimeout(() => {
+    preloader.classList.add("exit");
+    document.body.classList.remove("loading");
+
+    preloader.addEventListener(
+      "transitionend",
+      () => {
+        preloader.classList.add("hidden");
+      },
+      { once: true },
+    );
+  }, 260);
+}
+
+function startPreloader() {
+  if (!preloader || preloader.classList.contains("hidden")) {
+    document.body.classList.remove("loading");
+    return;
+  }
+
+  let currentProgress = 0;
+  const durationMs = 2100;
+  const tickMs = 95;
+  const startTime = performance.now();
+
+  updatePreloader(currentProgress);
+
+  const loadInterval = setInterval(() => {
+    const elapsed = performance.now() - startTime;
+    const linearTarget = Math.min((elapsed / durationMs) * 100, 100);
+    const jitter = Math.random() * 5.5;
+
+    currentProgress = Math.max(currentProgress + jitter, linearTarget);
+    currentProgress = Math.min(currentProgress, 99.4);
+
+    if (elapsed >= durationMs) {
+      clearInterval(loadInterval);
+      completePreloader();
+      return;
+    }
+
+    updatePreloader(currentProgress);
+  }, tickMs);
+}
+
+if (document.readyState === "complete") {
+  startPreloader();
+} else {
+  window.addEventListener("load", startPreloader, { once: true });
+}
+
 setTimeInSec(getTimeForMode("pomodoro"));
 
 timerTab.forEach((tab) => {
